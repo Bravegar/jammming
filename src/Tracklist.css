@@ -1,0 +1,9 @@
+.Tracklist{
+    width:auto;
+    height:33vh;
+    background-color: green;
+    padding:25px;
+    overflow: scroll;
+    border: 1px solid #ccc;
+    border-radius:5px;
+}

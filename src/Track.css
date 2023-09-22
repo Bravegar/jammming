@@ -1,0 +1,15 @@
+.Track{
+    background-color: lightgray;
+    border-radius: 5%;
+    width:240px;
+    height:auto;
+    margin:1px;
+}
+.Title{
+    font-size: large;
+    color: black;
+}
+.SongInfo{
+    font-size:medium;
+    color:darkolivegreen;
+}
