@@ -1,15 +1,41 @@
 .Track{
     background-color: lightgray;
-    border-radius: 5%;
-    width:240px;
+    border-radius: 5px;
+    border: 1px black;
+    width:auto;
     height:auto;
     margin:1px;
+    position:relative;
 }
 .Title{
-    font-size: large;
+    font-size: medium;
     color: black;
 }
 .SongInfo{
-    font-size:medium;
+    font-size:small;
     color:darkolivegreen;
+}
+
+.buttonAdd{
+    background-color: gray;
+    position: absolute;
+    width: 30px;
+    height:30px;
+    right:10px;
+    bottom: 10px;
+    background-image: url('bootstrap-icons/icons/plus-circle.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    
+}
+.buttonRemove{
+    background-color: gray;
+    position: absolute;
+    width: 30px;
+    height:30px;
+    right:10px;
+    bottom: 10px;
+    background-image: url('bootstrap-icons/icons/dash-circle.svg');
+    background-repeat: no-repeat;
+    background-position: center;
 }

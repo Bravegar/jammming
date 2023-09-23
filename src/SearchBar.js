@@ -8,9 +8,12 @@ const SearchBar = ({onSearch}) => {
         setInputValue(e.target.value);
         onSearch(e.target.value);
     }
+
     return (
         <>
-            <input type="text" value={inputValue} onChange={handleInputChange}/>
+            <input type="text" className="searchField" value={inputValue} onChange={handleInputChange}/>
+            
+            <input type="submit" className="searchButton" value="Search"/>
         </>
     )
 }

@@ -1,12 +1,15 @@
 import './App.css';
+
 import SearchBar from './SearchBar';
-import Tracklist from './Tracklist';
+import SearchResults from './SearchResults';
+import Playlist from './Playlist';
 import React, {useState,useEffect} from 'react';
 
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [playList, setPlayList] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   useEffect(()=>{
     console.log(searchTerm);
   },[searchTerm]);
@@ -16,9 +19,10 @@ function App() {
     <div className="App">
       
         <SearchBar onSearch={setSearchTerm}/>
-        <Tracklist />
         
+        <SearchResults />
         
+        <Playlist />
     </div>
   );
 }
