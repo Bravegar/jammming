@@ -4,6 +4,6 @@ A project designed to use the Spotify API to quickly search for songs and create
 
 ## Technology Used
 
--React
--React-router-dom
--HTML/CSS/JS
+- React
+- React-router-dom
+- HTML/CSS/JS
