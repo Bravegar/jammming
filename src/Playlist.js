@@ -1,10 +1,10 @@
 import './Playlist.css';
 import Tracklist from './Tracklist';
-const songList = ["Hello Test"];
-const Playlist = () => {
+
+const Playlist = (props) => {
     return (
         <div className ="playlist">
-            <Tracklist songList={songList} buttonClass="buttonRemove"/>
+            <Tracklist tracks={props.tracks} onRemove={props.onRemove} buttonClass="buttonRemove"/>
         </div>
     )
     
