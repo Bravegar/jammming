@@ -1,7 +1,8 @@
 import './SearchBar.css'
 import React,{useState} from 'react';
+import { getListOfTracks } from './spotifyService';
 
-const SearchBar = ({onSearch}) => {
+const SearchBar = ({onSearch,access_token,updateSearchList}) => {
 
     const [inputValue,setInputValue] = useState('');
     const handleInputChange = (e) => {
@@ -13,9 +14,12 @@ const SearchBar = ({onSearch}) => {
         <>
             <input type="text" className="searchField" value={inputValue} onChange={handleInputChange}/>
             
-            <input type="submit" className="searchButton" value="Search"/>
+            <input type="submit" className="searchButton" value="Search" onClick={()=>{
+                getListOfTracks(inputValue, access_token,updateSearchList)}
+            }/>
+            
         </>
     )
 }
 
-export default SearchBar
+export default SearchBar;

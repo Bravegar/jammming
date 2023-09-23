@@ -1,85 +1,30 @@
 import './App.css';
-
+import CallbackComponent from './CallbackComponent';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import Playlist from './Playlist';
 import React, {useState,useEffect} from 'react';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import url from './spotifyService';
 
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [playlist, setPlaylist] = useState({"tracks":[]});
-  const [searchResults, setSearchResults] = useState(
-    {
-      "tracks": [
-        {
-          "id": "3n3Ppam7vgaVa1iaRUc9Lp",
-          "name": "Bohemian Rhapsody",
-          "artists": [
-            {
-              "id": "1dfeR4HaWDbWqFHLkxsg1d",
-              "name": "Queen"
-            }
-          ],
-          "album": {
-            "id": "0vYkRb2uOJs9V9RPPsWBUR",
-            "name": "A Night at the Opera",
-            "release_date": "1975-11-21",
-            "total_tracks": 12
-          },
-          "duration_ms": 354320,
-          "popularity": 85
-        },
-        {
-          "id": "6e40mgJiCid5HRAGrbpGA6",
-          "name": "Hotel California",
-          "artists": [
-            {
-              "id": "0ECwFtbIWEVNwjlrfc6xoL",
-              "name": "Eagles"
-            }
-          ],
-          "album": {
-            "id": "0Ft5mXM8vWmYjdmta2R2tX",
-            "name": "Hotel California",
-            "release_date": "1976-12-08",
-            "total_tracks": 9
-          },
-          "duration_ms": 391373,
-          "popularity": 88
-        },
-        {
-          "id": "0tL3YwExJ1Hl0Skc4MPrB9",
-          "name": "Imagine",
-          "artists": [
-            {
-              "id": "4x1nvY2FN8jxqAFA0DA02H",
-              "name": "John Lennon"
-            }
-          ],
-          "album": {
-            "id": "7vqH7Vd8XDx9m6y9jzj67b",
-            "name": "Imagine",
-            "release_date": "1971-09-09",
-            "total_tracks": 10
-          },
-          "duration_ms": 184133,
-          "popularity": 79
-        }
-      ]
-    }
-  );
+  const [playlist, setPlaylist] = useState({"tracks":{"items":[]}});
+  const [userData, setUserData] = useState(null);
+  const [access_token, setToken] = useState(null);
+  const [searchResults, setSearchResults] = useState({"tracks":{"items":[]}});
+  
   
   const moveTrackToPlaylist = (track) => {
     // Check if the track is not already in the playlist
-    if (!playlist.tracks.find(playlistTrack => playlistTrack.id === track.id)) {
+    if (!playlist.tracks.items.find(playlistTrack => playlistTrack.id === track.id)) {
       // Create a new copy of the playlist object with the added track
       const updatedPlaylist = {
-        ...playlist,
-        tracks: [...playlist.tracks, track],
+        "tracks":{
+          "items":[...playlist.tracks.items,track]
+        }
       };
-      console.log(playlist);
-      console.log(updatedPlaylist);
       // Update the playlist state with the new copy
       setPlaylist(updatedPlaylist);
     }
@@ -87,13 +32,16 @@ function App() {
   
   const moveTrackBackToSearch = (track) => {
     // Filter the track out of the playlist's tracks array
-    const updatedPlaylistTracks = playlist.tracks.filter(playlistTrack => playlistTrack.id !== track.id);
+    const updatedPlaylistTracks = playlist.tracks.items.filter(playlistTrack => playlistTrack.id !== track.id);
   
     // Create a new copy of the playlist object with the updated tracks array
     const updatedPlaylist = {
-      ...playlist,
-      tracks: updatedPlaylistTracks,
-    };
+        "tracks":{
+          "items": [...updatedPlaylistTracks]
+        }
+      }
+      
+    
   
     // Update the playlist state with the new copy
     setPlaylist(updatedPlaylist);
@@ -104,15 +52,17 @@ function App() {
 
 
   return (
-    <div className="App">
-      
-        <SearchBar onSearch={setSearchTerm}/>
-        
-        <SearchResults tracks={searchResults} onAdd={moveTrackToPlaylist}/>
-        
-        <Playlist tracks={playlist} onRemove={moveTrackBackToSearch}/>
-        
-    </div>
+    <Router>
+      <div className="App">
+          <a href={url}>Login to Spotify</a>
+          <SearchBar onSearch={setSearchTerm} searchResults={searchResults} updateSearchList={setSearchResults} userData={userData} access_token={access_token}/>
+          <SearchResults tracks={searchResults} onAdd={moveTrackToPlaylist}/>   
+          <Playlist tracks={playlist} onRemove={moveTrackBackToSearch}/>
+      </div>
+      <Routes>  
+        <Route path="/callback" element={<CallbackComponent userData={userData} setUserData={setUserData} setToken={setToken} />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -5,7 +5,9 @@ const Tracklist = (props) => {
     
     return (
     <div className="Tracklist">
-        {props.tracks['tracks'].map(track=> {return <Track track={track} onAdd={props.onAdd} onRemove={props.onRemove}/>})}
+        {console.log(props.tracks)}
+
+        {props.tracks['tracks']['items'].map(track=> {return <Track track={track} onAdd={props.onAdd} onRemove={props.onRemove}/>})}
         
     </div>)
     
